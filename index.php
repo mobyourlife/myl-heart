@@ -37,6 +37,9 @@ function the_post ()
 
 function get_template_part ( $slug = null, $name = null )
 {
+	global $theme_path;
+	$template = $slug . "-" . $name . ".php";
+	require $theme_path . "/" . $template;
 }
 
 function get_sidebar ( $name = null )
@@ -53,19 +56,40 @@ function get_footer ( $name = null )
 
 function language_attributes ( $doctype = 'html' )
 {
-	print $doctype;
+	print "lang=\"pt-BR\"";
 }
 
 function bloginfo ( $show = '' )
 {
+	switch ($show)
+	{
+		case "charset":
+			print "UTF-8";
+			break;
+		
+		case "name":
+			print "Mob Your Life";
+			break;
+		
+		case "description":
+			print "A simplicidade gera novos caminhos.";
+			break;
+		
+		default:
+			print "bloginfo-" . $show;
+			break;
+	}
 }
 
 function wp_title ( $sep = '»', $display = true, $seplocation = '' )
 {
+	print "Mob Your Life";
 }
 
 function wp_head()
 {
+	global $theme_path;
+	print "<link rel=\"stylesheet\" href=\"" . $theme_path . "style.css\" />";
 }
 
 function body_class ( $class = '' )
@@ -88,6 +112,10 @@ function home_url ( $path = '', $scheme = null )
 {
 }
 
+function admin_url ( $path = '', $scheme = 'admin' )
+{
+}
+
 function do_action ( $tag = null,  $arg = '' )
 {
 }
@@ -98,6 +126,26 @@ function wp_footer()
 
 function is_active_sidebar ( $index = null )
 {
+}
+
+function is_home ()
+{
+	return true;
+}
+
+function current_user_can ( $capability = null )
+{
+	return false;
+}
+
+function is_search ()
+{
+	return false;
+}
+
+function get_search_form ( $echo = true )
+{
+	//require get_template_part( 'content', 'search' );
 }
 
 /* Include theme. */
