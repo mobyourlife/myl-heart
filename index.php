@@ -96,8 +96,48 @@ function body_class ( $class = '' )
 {
 }
 
+function wp_parse_str ( $string = null, &$array = null )
+{
+	parse_str($string, $array);
+	
+	if (get_magic_quotes_gpc())
+	{
+		$array = stripslashes_deep($array);
+	}
+}
+
+function wp_parse_args ( $args = null, $defaults = '' )
+{
+	if (is_object($args))
+	{
+		$r = get_object_vars($args);
+	}
+	elseif (is_array($args))
+	{
+		$r =& $args;
+	}
+	else
+	{
+		wp_parse_str($args, $r);
+	}
+	
+	if (is_array($defaults))
+	{
+		return array_merge( $defaults, $r );
+	}
+	
+	return $r;
+}
+
 function wp_nav_menu ( $args = array() )
 {
+    static $menu_id_slugs = array();
+ 
+    $defaults = array( 'menu' => '', 'container' => 'div', 'container_class' => '', 'container_id' => '', 'menu_class' => 'menu', 'menu_id' => '',
+    'echo' => true, 'fallback_cb' => 'wp_page_menu', 'before' => '', 'after' => '', 'link_before' => '', 'link_after' => '', 'items_wrap' => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+    'depth' => 0, 'walker' => '', 'theme_location' => '' );
+ 
+    $args = wp_parse_args( $args, $defaults );
 }
 
 function get_header_image ()
