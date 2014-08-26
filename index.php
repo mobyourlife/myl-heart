@@ -377,18 +377,12 @@ function get_template_directory ()
 
 function add_filter ( $tag = null, $function_to_add = null, $priority = 10, $accepted_args = 1 )
 {
-	if ($accepted_args != 1)
-	{
-		return;
-	}
-	
-	global $myl_actions;
-	$myl_actions[$tag] = $function_to_add;
 }
 
 function add_action ( $tag = null, $function_to_add = null, $priority = 10, $accepted_args = 1 )
 {
-	add_filter ( $tag, $function_to_add, $priority, $accepted_args);
+	global $myl_actions;
+	$myl_actions[$tag] = $function_to_add;
 }
 
 function register_sidebar ( $args = array() )
