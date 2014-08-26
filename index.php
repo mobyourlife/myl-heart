@@ -28,8 +28,13 @@ function get_header ( $name = null )
 	require $theme_path . "header.php";
 }
 
+$max_posts = 3;
+
 function have_posts ()
 {
+	global $max_posts;
+	while ($max_posts-- >= 0)
+		return true;
 	return false;
 }
 
@@ -37,11 +42,119 @@ function the_post ()
 {
 }
 
+function get_post_format ( $post = null )
+{
+	return "single";
+}
+
+function the_ID ()
+{
+	print "0";
+}
+
+function post_class ( $class = '', $post_id = null )
+{
+}
+
+function the_title ( $before = '', $after = '', $echo = true )
+{
+	print "Title";
+}
+
+function get_the_date ( $d = '', $post = null )
+{
+	if (empty($d))
+	{
+		$d = "Y-m-d";
+	}
+	return date($d);
+}
+
+function get_the_time ( $d = '', $post = null )
+{
+	if (empty($d))
+	{
+		$d = "H:i:s";
+	}
+	return date($d);
+}
+
+function get_the_modified_date ( $d = '' )
+{
+	if (empty($d))
+	{
+		$d = "Y-m-d";
+	}
+	return date($d);
+}
+
+function get_the_modified_time ( $d = '' )
+{
+	if (empty($d))
+	{
+		$d = "H:i:s";
+	}
+	return date($d);
+}
+
+function esc_attr ( $text = null )
+{
+	return $text;
+}
+
+function esc_html ( $text = null )
+{
+	return $text;
+}
+
+function get_permalink ( $id = 0, $leavename = false )
+{
+	return "permalink";
+}
+
+function get_author_posts_url ( $author_id = null,  $author_nicename = '' )
+{
+	return "author/" . $author_id;
+}
+
+function get_the_author_meta ( $field = '', $user_id = false )
+{
+	return "100";
+}
+
+function get_the_author ( $deprecated = '' )
+{
+	return "Author";
+}
+
+function the_content ( $more_link_text = null, $strip_teaser = false )
+{
+	print "Lorem ipsum dolor amet.";
+}
+
+function wp_link_pages ( $args = '' )
+{
+}
+
+function the_category ( $separator = '', $parents = '', $post_id = false )
+{
+	print "Categoria";
+}
+
+function the_tags ( $before = null, $sep = ', ', $after = '' )
+{
+	print "Tags";
+}
+
+function edit_post_link ( $link = null, $before = '', $after = '', $id = 0 )
+{
+}
+
 function get_template_part ( $slug = null, $name = null )
 {
 	global $theme_path;
 	$template = $slug . "-" . $name . ".php";
-	require $theme_path . "/" . $template;
+	require $theme_path . $template;
 }
 
 function get_sidebar ( $name = null )
@@ -201,14 +314,17 @@ function get_header_image ()
 
 function esc_url ( $url = null, $protocols = null, $_context = 'display' )
 {
+	return $url;
 }
 
 function home_url ( $path = '', $scheme = null )
 {
+	return "./";
 }
 
 function admin_url ( $path = '', $scheme = 'admin' )
 {
+	return "./admin/";
 }
 
 function do_action ( $tag = null,  $arg = '' )
