@@ -1,8 +1,10 @@
 <?php
 
+require "myl-config.php";
+
 /* Setup current theme. */
 $theme_base = "themes/";
-$theme_name = "padhang";
+$theme_name = $myl_config['theme_name'];
 $theme_path = $theme_base . $theme_name . "/";
 
 $myl_actions = array();
@@ -18,7 +20,7 @@ function __ ( $text, $domain = 'default' ) {
 }
 
 function _e ( $text, $domain = 'default' ) {
-    echo translate( $text, $domain );
+    print translate( $text, $domain );
 }
 
 /* WP themes mid layer. */
