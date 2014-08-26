@@ -1,7 +1,7 @@
 <?php
 
 /* Setup current theme. */
-$theme_base = "./themes/";
+$theme_base = "themes/";
 $theme_name = "padhang";
 $theme_path = $theme_base . $theme_name . "/";
 
@@ -92,10 +92,59 @@ function wp_title ( $sep = '»', $display = true, $seplocation = '' )
 	print "Mob Your Life";
 }
 
-function wp_head()
+$wp_scripts_header = array();
+$wp_scripts_footer = array();
+$wp_styles = array();
+
+function wp_enqueue_script ( $handle = null, $src = false, $deps = array(), $ver = false, $in_footer = false )
+{
+	global $wp_scripts_header, $wp_scripts_footer;
+	
+	if ($in_footer == true)
+	{
+		$wp_scripts_footer[$handle] = $src;
+	}
+	else
+	{
+		$wp_scripts_header[$handle] = $src;
+	}
+}
+
+function wp_enqueue_style ( $handle = null, $src = false, $deps = array(), $ver = false, $media = 'all' )
+{
+	global $wp_styles;
+	$wp_styles[$handle] = $src;
+}
+
+function get_stylesheet_uri ()
 {
 	global $theme_path;
-	print "<link rel=\"stylesheet\" href=\"" . $theme_path . "style.css\" />";
+	return $theme_path . "style.css";
+}
+
+function wp_head()
+{
+	global $wp_styles, $wp_scripts_header;
+	
+	foreach ($wp_styles as $id => $src)
+	{
+		print "<link rel=\"stylesheet\" href=\"" . $src . "\" />\r\n";
+	}
+	
+	foreach ($wp_scripts_header as $id => $src)
+	{
+		print "<script type=\"text/javascript\" src=\"" . $src . "\"></script>\r\n";
+	}
+}
+
+function wp_footer()
+{
+	global $wp_scripts_footer;
+	
+	foreach ($wp_scripts_footer as $id => $src)
+	{
+		print "<script type=\"text/javascript\" src=\"" . $src . "\"></script>\r\n";
+	}
 }
 
 function body_class ( $class = '' )
@@ -166,10 +215,6 @@ function do_action ( $tag = null,  $arg = '' )
 {
 }
 
-function wp_footer()
-{
-}
-
 function is_active_sidebar ( $index = null )
 {
 }
@@ -202,6 +247,11 @@ function get_template_directory ()
 
 function add_filter ( $tag = null, $function_to_add = null, $priority = 10, $accepted_args = 1 )
 {
+	if ($accepted_args != 1)
+	{
+		return;
+	}
+	
 	global $myl_actions;
 	$myl_actions[$tag] = $function_to_add;
 }
@@ -212,18 +262,6 @@ function add_action ( $tag = null, $function_to_add = null, $priority = 10, $acc
 }
 
 function register_sidebar ( $args = array() )
-{
-}
-
-function wp_enqueue_style ( $handle = null, $src = false, $deps = array(), $ver = false, $media = 'all' )
-{
-}
-
-function get_stylesheet_uri ()
-{
-}
-
-function wp_enqueue_script ( $handle = null, $src = false, $deps = array(), $ver = false, $in_footer = false )
 {
 }
 
@@ -253,6 +291,10 @@ function apply_filters ( $tag = null, $value = null )
 }
 
 function add_theme_support ( $feature = null )
+{
+}
+
+function add_theme_page ( $page_title = null, $menu_title = null, $capability = null, $menu_slug = null, $function = '' )
 {
 }
 
@@ -293,7 +335,7 @@ require $theme_path . "functions.php";
 /* Run actions. */
 foreach ($myl_actions as $tag => $function)
 {
-	//call_user_func($function);
+	call_user_func($function);
 }
 
 /* Include theme. */
