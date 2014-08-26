@@ -127,9 +127,23 @@ function get_the_author ( $deprecated = '' )
 	return "Author";
 }
 
-function the_content ( $more_link_text = null, $strip_teaser = false )
+function get_the_content ( $more_link_text = null,  $strip_teaser = false )
 {
 	print "Lorem ipsum dolor amet.";
+}
+
+function the_content ( $more_link_text = null, $strip_teaser = false )
+{
+	return get_the_content($more_link_text, $strip_teaser);
+}
+
+function get_url_in_content ( $content = null )
+{
+	return "./content_url";
+}
+
+function get_post_type ( $post = null )
+{
 }
 
 function wp_link_pages ( $args = '' )
