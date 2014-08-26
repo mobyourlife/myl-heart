@@ -5,6 +5,8 @@ $theme_base = "./themes/";
 $theme_name = "padhang";
 $theme_path = $theme_base . $theme_name . "/";
 
+$myl_actions = array();
+
 /* i18n + l10n */
 function translate ( $text = null, $domain = 'default' )
 {
@@ -79,6 +81,10 @@ function bloginfo ( $show = '' )
 			print "bloginfo-" . $show;
 			break;
 	}
+}
+
+function get_bloginfo ( $show = '', $filter = 'raw' )
+{
 }
 
 function wp_title ( $sep = '»', $display = true, $seplocation = '' )
@@ -186,6 +192,108 @@ function is_search ()
 function get_search_form ( $echo = true )
 {
 	//require get_template_part( 'content', 'search' );
+}
+
+function get_template_directory ()
+{
+	global $theme_path;
+	return $theme_path;
+}
+
+function add_filter ( $tag = null, $function_to_add = null, $priority = 10, $accepted_args = 1 )
+{
+	global $myl_actions;
+	$myl_actions[$tag] = $function_to_add;
+}
+
+function add_action ( $tag = null, $function_to_add = null, $priority = 10, $accepted_args = 1 )
+{
+	add_filter ( $tag, $function_to_add, $priority, $accepted_args);
+}
+
+function register_sidebar ( $args = array() )
+{
+}
+
+function wp_enqueue_style ( $handle = null, $src = false, $deps = array(), $ver = false, $media = 'all' )
+{
+}
+
+function get_stylesheet_uri ()
+{
+}
+
+function wp_enqueue_script ( $handle = null, $src = false, $deps = array(), $ver = false, $in_footer = false )
+{
+}
+
+function get_template_directory_uri()
+{
+}
+
+function is_singular ( $post_types = '' )
+{
+}
+
+function delete_transient ( $transient = null )
+{
+}
+
+function is_multi_author()
+{
+	return false;
+}
+
+function is_feed ( $feeds = '' )
+{
+}
+
+function apply_filters ( $tag = null, $value = null )
+{
+}
+
+function add_theme_support ( $feature = null )
+{
+}
+
+/* Required classes. */
+class WP_Query
+{
+	function is_author ( $author = '' )
+	{
+	}
+}
+
+$wp_query = new WP_Query();
+
+/* Filters */
+/*
+Array
+(
+    [after_setup_theme] => padhang_custom_background_setup
+    [widgets_init] => padhang_widgets_init
+    [wp_enqueue_scripts] => padhang_scripts
+    [edit_category] => padhang_category_transient_flusher
+    [save_post] => padhang_category_transient_flusher
+    [wp_page_menu_args] => padhang_page_menu_args
+    [body_class] => padhang_body_classes
+    [wp_title] => padhang_wp_title
+    [wp] => padhang_setup_author
+    [customize_register] => padhang_customize_register
+    [customize_preview_init] => padhang_customize_preview_js
+    [wp_head] => padhang_customize_style
+    [padhang_footer] => padhang_footer_text
+    [admin_menu] => padhang_admin_menu
+)
+*/
+
+/* Prepare theme. */
+require $theme_path . "functions.php";
+
+/* Run actions. */
+foreach ($myl_actions as $tag => $function)
+{
+	//call_user_func($function);
 }
 
 /* Include theme. */
