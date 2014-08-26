@@ -328,17 +328,29 @@ function wp_nav_menu ( $args = array() )
     static $menu_id_slugs = array();
  
     $defaults = array( 'menu' => '', 'container' => 'div', 'container_class' => '', 'container_id' => '', 'menu_class' => 'menu', 'menu_id' => '',
-    'echo' => true, 'fallback_cb' => 'wp_page_menu', 'before' => '', 'after' => '', 'link_before' => '', 'link_after' => '', 'items_wrap' => '<li id="%1$s" class="%2$s"><a href="%3$s">%4$s</a></li>',
+    'echo' => true, 'fallback_cb' => 'wp_page_menu', 'before' => '', 'after' => '', 'link_before' => '', 'link_after' => '', 'items_wrap' => '<li id="%1$s" class="%2$s">%3$s</li>',
     'depth' => 0, 'walker' => '', 'theme_location' => '' );
  
 	$args = wp_parse_args( $args, $defaults );
 	
-	printf ("<%s class=\"%s\"><ul>", $defaults['container'], $defaults['menu_class']);
+	printf ("<%s class=\"%s\"><ul>", $args['container'], $args['menu_class']);
     
 	$menu_items = get_nav_menu_items ();
 	foreach ($menu_items as $short => $description)
     {
-	    printf ($defaults['items_wrap'], $short, "", $short, $description);
+    	$link = sprintf('<a href="%s">%s</a>', $short, $description);
+    	
+    	if (!empty($args['link_before']))
+    	{
+	    	$link = $args['link_before'] . $link;
+    	}
+    	
+    	if (!empty($args['link_after']))
+    	{
+	    	$link = $link . $args['link_after'];
+    	}
+    	
+	    printf ($args['items_wrap'], $short, "", $link);
     }
     
 	printf ("</ul></%s>", $defaults['container']);
