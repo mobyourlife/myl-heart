@@ -6,6 +6,23 @@ define(MYL_INC, "myl-includes/");
 /* Config file. */
 require "myl-config.php";
 
+/* Setup environment. */
+session_start ();
+
+/* Mob Your Life environment. */
+$max_posts = 3;
+$myl_actions = array();
+
+/* WordPress environment. */
+$wp_scripts_header = array();
+$wp_scripts_footer = array();
+$wp_styles = array();
+
+/* Setup theme path. */
+$theme_base = "themes/";
+$theme_name = $myl_config['theme_name'];
+$theme_path = $theme_base . $theme_name . "/";
+
 /* Modules. */
 require MYL_INC . "author-template.php";
 require MYL_INC . "category-template.php";
@@ -27,17 +44,7 @@ require MYL_INC . "query.php";
 require MYL_INC . "theme.php";
 require MYL_INC . "widgets.php";
 
-/* Setup current theme. */
-$theme_base = "themes/";
-$theme_name = $myl_config['theme_name'];
-$theme_path = $theme_base . $theme_name . "/";
-
-$max_posts = 3;
-$myl_actions = array();
-$wp_scripts_header = array();
-$wp_scripts_footer = array();
-$wp_styles = array();
-
+/* Mob Your Life functions. */
 function myl_get_nav_menu_items ()
 {
 	$menu_items = array();
@@ -48,7 +55,7 @@ function myl_get_nav_menu_items ()
 	return $menu_items;
 }
 
-/* Prepare theme. */
+/* Load functions. */
 require $theme_path . "functions.php";
 
 /* Run actions. */
@@ -57,7 +64,7 @@ foreach ($myl_actions as $tag => $function)
 	call_user_func($function);
 }
 
-/* Include theme. */
+/* Apply theme. */
 require $theme_path . "index.php";
 
 ?>
