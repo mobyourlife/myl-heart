@@ -101,7 +101,7 @@ function wp_head()
 {
 	global $wp_styles, $wp_scripts_header;
 	
-	foreach ($wp_styles as $id => $src)
+	foreach ($wp_styles->styles as $id => $src)
 	{
 		print "<link rel=\"stylesheet\" href=\"" . $src . "\" />\r\n";
 	}
