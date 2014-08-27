@@ -32,4 +32,12 @@ function body_class ( $class = '' )
 {
 }
 
+function is_page_template( $template = '' )
+{
+}
+
+function is_attachment( $attachment = '' )
+{
+}
+
 ?>

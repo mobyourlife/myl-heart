@@ -23,4 +23,13 @@ function wp_parse_args ( $args = null, $defaults = '' )
 	return $r;
 }
 
+function is_ssl ()
+{
+	return false;
+}
+
+function add_query_arg ()
+{
+}
+
 ?>

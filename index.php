@@ -13,11 +13,6 @@ session_start ();
 $max_posts = 3;
 $myl_actions = array();
 
-/* WordPress environment. */
-$wp_scripts_header = array();
-$wp_scripts_footer = array();
-$wp_styles = array();
-
 /* Setup theme path. */
 $theme_base = "themes/";
 $theme_name = $myl_config['theme_name'];
@@ -25,8 +20,12 @@ $theme_path = $theme_base . $theme_name . "/";
 
 /* Modules. */
 require MYL_INC . "author-template.php";
-require MYL_INC . "category-template.php";
 require MYL_INC . "capabilities.php";
+require MYL_INC . "category-template.php";
+require MYL_INC . "class-wp-customize-manager.php";
+require MYL_INC . "class-wp-customize-setting.php";
+require MYL_INC . "class.wp-dependencies.php";
+require MYL_INC . "class.wp-styles.php";
 require MYL_INC . "formatting.php";
 require MYL_INC . "functions.php";
 require MYL_INC . "functions.wp-scripts.php";
@@ -39,10 +38,17 @@ require MYL_INC . "option.php";
 require MYL_INC . "plugin.php";
 require MYL_INC . "post-formats.php";
 require MYL_INC . "post-template.php";
+require MYL_INC . "post-thumbnail-template.php";
 require MYL_INC . "post.php";
 require MYL_INC . "query.php";
 require MYL_INC . "theme.php";
 require MYL_INC . "widgets.php";
+
+/* WordPress environment. */
+$wp_scripts_header = array();
+$wp_scripts_footer = array();
+$wp_styles = new WP_Styles();
+$wp_customize = new WP_Customize_Manager();
 
 /* Mob Your Life functions. */
 function myl_get_nav_menu_items ()
@@ -61,7 +67,24 @@ require $theme_path . "functions.php";
 /* Run actions. */
 foreach ($myl_actions as $tag => $function)
 {
-	call_user_func($function);
+	$ref = new ReflectionFunction($function);
+	
+	if (count($ref) != 0)
+	{
+		$args = array();
+	
+		foreach ($ref->getParameters() as $param)
+		{
+			$name = $param->name;
+			$args[] = $$name;
+		}
+		
+		call_user_func_array($function, $args);
+	}
+	else
+	{
+		call_user_func($function);
+	}
 }
 
 /* Apply theme. */
