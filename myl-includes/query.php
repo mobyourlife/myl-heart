@@ -55,6 +55,11 @@ function is_404()
 	return false;
 }
 
+function is_single( $post = '' )
+{
+	return false;
+}
+
 class WP_Query
 {
 	function is_author ( $author = '' )

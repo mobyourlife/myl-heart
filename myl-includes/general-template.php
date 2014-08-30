@@ -10,7 +10,7 @@ function get_the_date ( $d = '', $post = null )
 {
 	if (empty($d))
 	{
-		$d = "Y-m-d";
+		$d = "F d, Y";
 	}
 	return date($d);
 }
@@ -28,7 +28,7 @@ function get_the_modified_date ( $d = '' )
 {
 	if (empty($d))
 	{
-		$d = "Y-m-d";
+		$d = "F d, Y";
 	}
 	return date($d);
 }
@@ -45,7 +45,16 @@ function get_the_modified_time ( $d = '' )
 function get_template_part ( $slug = null, $name = null )
 {
 	global $theme_path;
-	$template = $slug . "-" . $name . ".php";
+	
+	$template = $slug;
+	
+	if (!empty($name))
+	{
+		$template .= "-" . $name;
+	}
+	
+	$template .= ".php";
+	
 	require $theme_path . $template;
 }
 
