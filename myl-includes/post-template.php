@@ -9,14 +9,19 @@ function post_class ( $class = '', $post_id = null )
 {
 }
 
+function the_title_attribute( $args = '' )
+{
+	return "Title";
+}
+
 function the_title ( $before = '', $after = '', $echo = true )
 {
-	print "Title";
+	print the_title_attribute ();
 }
 
 function get_the_content ( $more_link_text = null,  $strip_teaser = false )
 {
-	print "Lorem ipsum dolor amet.";
+	print "<p>Lorem ipsum dolor amet.</p>" . "<p>" . $more_link_text . "</p>";
 }
 
 function the_content ( $more_link_text = null, $strip_teaser = false )

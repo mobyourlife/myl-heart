@@ -2,7 +2,12 @@
 
 function get_permalink ( $id = 0, $leavename = false )
 {
-	return "permalink";
+	return "./";
+}
+
+function the_permalink ()
+{
+	print get_permalink ();
 }
 
 function edit_post_link ( $link = null, $before = '', $after = '', $id = 0 )

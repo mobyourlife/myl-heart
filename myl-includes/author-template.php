@@ -15,9 +15,14 @@ function get_the_author ( $deprecated = '' )
 	return "Author";
 }
 
+function the_author( $deprecated = '', $deprecated_echo = true )
+{
+	print get_the_author ();
+}
+
 function is_multi_author()
 {
-	return false;
+	return true;
 }
 
 ?>

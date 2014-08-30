@@ -2,7 +2,7 @@
 
 function get_post_format ( $post = null )
 {
-	return "page";
+	return "aside";
 }
 
 ?>
