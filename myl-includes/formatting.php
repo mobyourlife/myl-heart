@@ -30,4 +30,15 @@ function esc_url ( $url = null, $protocols = null, $_context = 'display' )
 	return $url;
 }
 
+function esc_url_raw( $url, $protocols = null )
+{
+    return esc_url( $url, $protocols, 'db' );
+}
+
+function urlencode_deep($value)
+{
+    $value = is_array($value) ? array_map('urlencode_deep', $value) : urlencode($value);
+    return $value;
+}
+
 ?>
