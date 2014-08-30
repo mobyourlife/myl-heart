@@ -6,6 +6,9 @@ define(MYL_INC, "myl-includes/");
 /* Config file. */
 require "myl-config.php";
 
+/* Mob Your Life modules. */
+require "myl-navigation.php";
+
 /* Setup environment. */
 session_start ();
 
@@ -18,7 +21,7 @@ $theme_base = "themes/";
 $theme_name = $myl_config['theme_name'];
 $theme_path = $theme_base . $theme_name . "/";
 
-/* Modules. */
+/* WordPress Modules. */
 require MYL_INC . "author-template.php";
 require MYL_INC . "capabilities.php";
 require MYL_INC . "category-template.php";
@@ -49,17 +52,6 @@ $wp_scripts_header = array();
 $wp_scripts_footer = array();
 $wp_styles = new WP_Styles();
 $wp_customize = new WP_Customize_Manager();
-
-/* Mob Your Life functions. */
-function myl_get_nav_menu_items ()
-{
-	$menu_items = array();
-	$menu_items['home'] = "Início";
-	$menu_items['photos'] = "Fotos";
-	$menu_items['videos'] = "Vídeos";
-	$menu_items['contact'] = "Contato";
-	return $menu_items;
-}
 
 /* Load functions. */
 require $theme_path . "functions.php";

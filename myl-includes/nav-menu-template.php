@@ -13,9 +13,9 @@ function wp_nav_menu ( $args = array() )
 	printf ("<%s class=\"%s\"><ul>", $args['container'], $args['menu_class']);
     
 	$menu_items = myl_get_nav_menu_items ();
-	foreach ($menu_items as $short => $description)
+	foreach ($menu_items as $nav_item)
     {
-    	$link = sprintf('<a href="%s">%s</a>', $short, $description);
+    	$link = sprintf('<a href="%s">%s</a>', $nav_item->link, $nav_item->text);
     	
     	if (!empty($args['link_before']))
     	{
@@ -27,7 +27,7 @@ function wp_nav_menu ( $args = array() )
 	    	$link = $link . $args['link_after'];
     	}
     	
-	    printf ($args['items_wrap'], $short, "", $link);
+	    printf ($args['items_wrap'], $nav_item->link, $nav_item->css, $link);
     }
     
 	printf ("</ul></%s>", $defaults['container']);
