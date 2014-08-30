@@ -36,6 +36,7 @@ require MYL_INC . "functions.wp-styles.php";
 require MYL_INC . "general-template.php";
 require MYL_INC . "l10n.php";
 require MYL_INC . "link-template.php";
+require MYL_INC . "locale.php";
 require MYL_INC . "nav-menu-template.php";
 require MYL_INC . "option.php";
 require MYL_INC . "plugin.php";
@@ -48,10 +49,11 @@ require MYL_INC . "theme.php";
 require MYL_INC . "widgets.php";
 
 /* WordPress environment. */
+$wp_customize = new WP_Customize_Manager();
+$wp_styles = new WP_Styles();
 $wp_scripts_header = array();
 $wp_scripts_footer = array();
-$wp_styles = new WP_Styles();
-$wp_customize = new WP_Customize_Manager();
+$classes = array();
 
 /* Load functions. */
 require $theme_path . "functions.php";
@@ -68,7 +70,7 @@ foreach ($myl_actions as $tag => $function)
 		foreach ($ref->getParameters() as $param)
 		{
 			$name = $param->name;
-			$args[] = $$name;
+			$args[] = &$$name;
 		}
 		
 		call_user_func_array($function, $args);

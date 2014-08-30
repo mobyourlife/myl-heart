@@ -6,6 +6,8 @@ function do_action ( $tag = null,  $arg = '' )
 
 function add_filter ( $tag = null, $function_to_add = null, $priority = 10, $accepted_args = 1 )
 {
+	global $myl_actions;
+	$myl_actions[$tag] = $function_to_add;
 }
 
 function add_action ( $tag = null, $function_to_add = null, $priority = 10, $accepted_args = 1 )

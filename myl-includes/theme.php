@@ -51,4 +51,25 @@ function add_theme_support ( $feature = null )
 {
 }
 
+function get_theme_support( $feature )
+{
+	return false;
+}
+
+function get_theme_mod( $name, $default = false )
+{
+	return false;
+}
+
+function get_background_color()
+{
+	return 'default';
+	return get_theme_mod('background_color', get_theme_support( 'custom-background', 'default-color' ) );
+}
+
+function get_background_image()
+{
+	return get_theme_mod('background_image', get_theme_support( 'custom-background', 'default-image' ) );
+}
+
 ?>

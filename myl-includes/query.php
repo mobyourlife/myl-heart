@@ -30,6 +30,31 @@ function is_feed ( $feeds = '' )
 {
 }
 
+function is_front_page()
+{
+	return true;
+}
+
+function is_archive()
+{
+	return false;
+}
+
+function is_date()
+{
+	return false;
+}
+
+function is_paged()
+{
+	return false;
+}
+
+function is_404()
+{
+	return false;
+}
+
 class WP_Query
 {
 	function is_author ( $author = '' )

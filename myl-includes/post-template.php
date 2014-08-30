@@ -28,8 +28,39 @@ function wp_link_pages ( $args = '' )
 {
 }
 
-function body_class ( $class = '' )
+/* TODO: http://developer.wordpress.org/reference/functions/get_body_class/ */
+function get_body_class( $class = '' )
 {
+    global $classes;
+    
+    if ( is_rtl() )
+        $classes[] = 'rtl';
+ 
+    if ( is_front_page() )
+        $classes[] = 'home';
+    if ( is_home() )
+        $classes[] = 'blog';
+    if ( is_archive() )
+        $classes[] = 'archive';
+    if ( is_date() )
+        $classes[] = 'date';
+    if ( is_search() ) {
+        $classes[] = 'search';
+        $classes[] = $wp_query->posts ? 'search-results' : 'search-no-results';
+    }
+    if ( is_paged() )
+        $classes[] = 'paged';
+    if ( is_attachment() )
+        $classes[] = 'attachment';
+    if ( is_404() )
+        $classes[] = 'error404';
+    
+    return $classes;
+}
+
+function body_class( $class = '' )
+{
+	echo 'class="' . join( ' ', get_body_class( $class ) ) . '"';
 }
 
 function is_page_template( $template = '' )
